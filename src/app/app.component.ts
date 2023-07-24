@@ -1,4 +1,12 @@
-import { Component } from '@angular/core';
+
+import {
+  Component,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  Injector
+} from "@angular/core";
+import { createEditor } from "./editor";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +14,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'inv-rete';
+  title = "CodeSandbox";
+
+  constructor(private injector: Injector) {}
+
+  @ViewChild("rete") container!: ElementRef;
+
+  ngAfterViewInit(): void {
+    const el = this.container.nativeElement;
+
+    if (el) {
+      createEditor(el, this.injector);
+    }
+  }
 }
